@@ -1,0 +1,334 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FREELANCER
+  CLIENT
+  ADMIN
+}
+
+enum JobStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+enum ProposalStatus {
+  SENT
+  VIEWED
+  SHORTLISTED
+  HIRED
+  DECLINED
+  WITHDRAWN
+}
+
+enum TransactionType {
+  JOB_POSTING
+  MILESTONE_PAYMENT
+  PLATFORM_FEE
+  WITHDRAWAL
+  REFUND
+}
+
+enum NotificationType {
+  JOB_UPDATE
+  NEW_PROPOSAL
+  MESSAGE
+  PAYMENT
+  REVIEW
+  SYSTEM
+  DISPUTE
+}
+
+enum PermissionName {
+  // General
+  VIEW_DASHBOARD
+  UPDATE_PROFILE
+  VIEW_NOTIFICATIONS
+  VIEW_WALLET
+
+  // Client Permissions
+  POST_JOB
+  EDIT_JOB
+  DELETE_JOB
+  VIEW_PROPOSALS
+  HIRE_FREELANCER
+  FUND_MILESTONE
+  RELEASE_PAYMENT
+  REVIEW_FREELANCER
+
+  // Freelancer Permissions
+  BROWSE_JOBS
+  SUBMIT_PROPOSAL
+  WITHDRAW_PROPOSAL
+  CHAT_WITH_CLIENT
+  DELIVER_MILESTONE
+  REQUEST_REVISION
+  REVIEW_CLIENT
+  WITHDRAW_FUNDS
+
+  // Admin/Moderator Permissions
+  ACCESS_ADMIN_PANEL
+  VIEW_ALL_USERS
+  BAN_USER
+  UNBAN_USER
+  VERIFY_USER
+  MANAGE_JOBS
+  VIEW_TRANSACTIONS
+  MANAGE_COMMISSION
+  MANAGE_DISPUTES
+  APPROVE_REVIEW
+  DELETE_REVIEW
+  VIEW_SITE_STATS
+
+  // AI/Optional Features
+  USE_AI_ASSISTANT
+  GENERATE_PROPOSALS
+  SUMMARIZE_JOB_DESCRIPTION
+  SUGGEST_RATE
+
+  // Dispute System
+  CREATE_DISPUTE
+  VIEW_DISPUTE
+  RESOLVE_DISPUTE
+
+  // Gamification
+  VIEW_LEADERBOARD
+  EARN_BADGES
+  LEVEL_UP
+}
+
+model RolePermission {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  role         Role
+  permissionId String     @db.ObjectId
+  permission   Permission @relation(fields: [permissionId], references: [id])
+}
+
+model Permission {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  name        PermissionName @unique
+  description String?
+  createdAt   DateTime       @default(now())
+
+  roles           RolePermission[]
+  userPermissions UserPermission[]
+}
+
+model UserPermission {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String     @db.ObjectId
+  permissionId String     @db.ObjectId
+  user         User       @relation(fields: [userId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+}
+
+model User {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  email           String   @unique
+  password        String? // Optional for Google login
+  name            String
+  role            Role
+  isVerified      Boolean  @default(false)
+  avatar          String?
+  bio             String?
+  skills          String[]
+  languages       String[]
+  education       String?
+  experience      String?
+  hourlyRate      Float?
+  portfolio       String[]
+  location        String?
+  phone           String?
+  socialLinks     Json?
+  level           Int      @default(1)
+  xp              Int      @default(0)
+  badges          String[] @default([])
+  wallet          Float    @default(0)
+  stripeAccountId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobsPosted        Job[]            @relation("ClientJobs")
+  proposals         Proposal[]
+  reviewsGiven      Review[]         @relation("UserToReviews")
+  reviewsRecv       Review[]         @relation("UserReviewed")
+  transactions      Transaction[]
+  messages          Message[]
+  notifications     Notification[]
+  withdrawals       Withdrawal[]
+  disputesFiled     Dispute[]        @relation("UserFiledDisputes")
+  disputesAgainst   Dispute[]        @relation("UserReceivedDisputes")
+  customPermissions UserPermission[]
+
+  isBanned     Boolean @default(false)
+  banReason    String?
+  twoFAEnabled Boolean @default(false)
+}
+
+model Job {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  category     String
+  subcategory  String?
+  budget       Float
+  skills       String[]
+  attachments  String[]
+  status       JobStatus @default(OPEN)
+  deliveryDays Int
+  clientId     String    @db.ObjectId
+  client       User      @relation("ClientJobs", fields: [clientId], references: [id])
+  aiSummary    String?
+  jobFeePaid   Boolean   @default(false)
+  featured     Boolean   @default(false)
+
+  proposals         Proposal[]
+  milestones        Milestone[]
+  messages          Message[]
+  disputes          Dispute[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  hiredFreelancerId String?     @db.ObjectId
+}
+
+model Proposal {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  freelancerId String         @db.ObjectId
+  jobId        String         @db.ObjectId
+  proposalText String
+  price        Float
+  deliveryDays Int
+  attachments  String[]
+  status       ProposalStatus @default(SENT)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  freelancer User @relation(fields: [freelancerId], references: [id])
+  job        Job  @relation(fields: [jobId], references: [id])
+}
+
+model Milestone {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  jobId       String    @db.ObjectId
+  title       String
+  amount      Float
+  description String?
+  isPaid      Boolean   @default(false)
+  isApproved  Boolean   @default(false)
+  dueDate     DateTime?
+  job         Job       @relation(fields: [jobId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model Transaction {
+  id                  String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId              String          @db.ObjectId
+  amount              Float
+  type                TransactionType
+  referenceId         String?
+  stripePaymentIntent String?
+  stripeStatus        String?
+  stripeClientSecret  String?
+  platformFee         Float?
+  netAmount           Float?
+  createdAt           DateTime        @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Withdrawal {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  amount      Float
+  status      String   @default("PENDING") // or APPROVED, REJECTED
+  method      String? // e.g., PayPal, Bank
+  requestedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Review {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  reviewerId String   @db.ObjectId
+  revieweeId String   @db.ObjectId
+  jobId      String   @db.ObjectId
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+
+  reviewer User @relation("UserToReviews", fields: [reviewerId], references: [id])
+  reviewee User @relation("UserReviewed", fields: [revieweeId], references: [id])
+}
+
+model Message {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  senderId    String   @db.ObjectId
+  jobId       String   @db.ObjectId
+  content     String
+  attachments String[]
+  timestamp   DateTime @default(now())
+
+  sender User @relation(fields: [senderId], references: [id])
+  job    Job  @relation(fields: [jobId], references: [id])
+}
+
+model Notification {
+  id        String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String           @db.ObjectId
+  type      NotificationType
+  title     String
+  message   String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model AdminLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  action    String
+  adminId   String   @db.ObjectId
+  details   Json?
+  timestamp DateTime @default(now())
+}
+
+model Dispute {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  jobId         String    @db.ObjectId
+  filedById     String    @db.ObjectId
+  againstUserId String    @db.ObjectId
+  reason        String
+  status        String    @default("OPEN")
+  resolution    String?
+  filedAt       DateTime  @default(now())
+  resolvedAt    DateTime?
+
+  job         Job  @relation(fields: [jobId], references: [id])
+  filedBy     User @relation("UserFiledDisputes", fields: [filedById], references: [id])
+  againstUser User @relation("UserReceivedDisputes", fields: [againstUserId], references: [id])
+}
+
+model Badge {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  icon        String
+  description String
+  createdAt   DateTime @default(now())
+}

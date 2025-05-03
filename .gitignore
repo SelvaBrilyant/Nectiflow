@@ -1,0 +1,49 @@
+wc_node/node_modules
+wc_node/dist
+wc_node/generated
+wc_node/prisma/dev.db
+wc_node/prisma/dev.db-journal
+wc_node/prisma/dev.db-trace.json
+
+#--------FRONTEND--------
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+wc/node_modules
+wc/.pnp
+wc/.pnp.*
+wc/.yarn/*
+wc/.yarn/patches
+wc/.yarn/plugins
+wc/.yarn/releases
+wc/.yarn/versions
+
+# testing
+wc/coverage
+
+# next.js
+wc/.next/
+wc/out/
+
+# production
+wc/build
+
+# misc
+wc/.DS_Store
+wc/*.pem
+
+# debug
+wc/npm-debug.log*
+wc/yarn-debug.log*
+wc/yarn-error.log*
+wc/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+wc/.env*
+
+# vercel
+wc/.vercel
+
+# typescript
+wc/*.tsbuildinfo
+wc/next-env.d.ts
