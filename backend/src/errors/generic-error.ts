@@ -1,7 +1,7 @@
 import { CustomError } from './custom-error';
 
 export class GenericError extends CustomError {
-  statusCode = 400;
+  statusCode = 500;
 
   constructor(public message: string) {
     super(message);
@@ -9,6 +9,9 @@ export class GenericError extends CustomError {
   }
 
   serializeErrors() {
-    return [{ message: this.message }];
+    return {
+      status: this.statusCode,
+      message: this.message
+    };
   }
 }

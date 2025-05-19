@@ -165,6 +165,10 @@ model User {
   banReason    String?
   twoFAEnabled Boolean @default(false)
 
+  // Password Reset Fields
+  resetPasswordOTP    String?
+  resetPasswordExpiry DateTime?
+
   // Admin-specific (minimal)
   adminLog AdminLog[] // existing relation
 
@@ -199,6 +203,7 @@ model User {
   maritalStatus     String?
   freelancerSocials Json? // [{ type: "facebook", url: "..." }, ...]
   freelancerPhone   Json? // { code: "+91", number: "1234567890" }
+  freelancerProfile String?
 
   // Gamification
   level           Int      @default(1)

@@ -30,18 +30,19 @@ const devErrors = (res: Response, error: CustomError): void => {
  * @param {Object} error - CustomError object.
  */
 const productionError = (res: Response, error: CustomError): void => {
-  if (error.isOperational) {
-    res.status(error.statusCode).json({
-      status: error.statusCode,
-      message: error.message,
-    });
-  } else if (error instanceof RequestValidationError && error.errors.length > 0) {
+  console.log('error',error.message);
+  if (error instanceof RequestValidationError && error.errors.length > 0) {
     res.status(400).json({
       status: 'error',
       message: 'Validation errors occurred',
       errors: error.errors,
     });
-  } else {
+   } else if (error.message) {
+    res.status(error.statusCode).json({
+      status: 'error',
+      message: error.message,
+    });
+   } else {
     res.status(500).json({
       status: 'error',
       message: 'Something went wrong. Please try again later.',

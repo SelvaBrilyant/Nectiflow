@@ -14,6 +14,10 @@ export class RequestValidationError extends CustomError {
   }
 
   serializeErrors() {
-    return this.errors;
+    return {
+      status: this.statusCode,
+      message: this.message,
+      errors: this.errors
+    };
   }
 }

@@ -1,18 +1,24 @@
 import jwt from 'jsonwebtoken';
 
 class TokenService {
-  private secretKey: string;
+  private readonly JWT_SECRET: string;
 
   constructor() {
-    this.secretKey = process.env.SECRET_STR || '';
+    this.JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
   }
 
-  public signToken(id: string): string {
-    if (!this.secretKey) {
-      throw new Error('Secret key is not defined');
-    }
+  public signToken(userId: string): string {
+    return jwt.sign({ id: userId }, this.JWT_SECRET, {
+      expiresIn: '24h'
+    });
+  }
 
-    return jwt.sign({ id }, this.secretKey, { expiresIn: '1d' });
+  public verifyToken(token: string): { id: string } | null {
+    try {
+      return jwt.verify(token, this.JWT_SECRET) as { id: string };
+    } catch (error) {
+      return null;
+    }
   }
 }
 

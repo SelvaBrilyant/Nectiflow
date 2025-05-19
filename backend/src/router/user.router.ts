@@ -5,7 +5,17 @@ import TokenService from "../services/token.service";
 import { UserService } from "../services/user.services";
 import { UserController } from "../controller/user.controller";
 import { body } from "../middleware/validate-request";
-import { freelancerRegisterSchema, clientRegisterSchema } from "../utils/validators/validators";
+import { 
+  freelancerRegisterSchema, 
+  clientRegisterSchema, 
+  loginSchema, 
+  registerSchema, 
+  changePasswordSchema, 
+  updateUserSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema 
+} from "../utils/validators/validators";
+import { authenticate } from "../middleware/auth";
 
 const userRouter = Router();
 
@@ -15,11 +25,8 @@ const tokenService = new TokenService()
 const userService = new UserService(userRepository, tokenService);
 const userController = new UserController(userService);
 
-userRouter.get("/login", userController.loginUser);
-userRouter.get('/auth/google', (req, res) => {
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code&scope=profile email`;
-    res.redirect(url);
-});
+// Login route with validation
+userRouter.post("/login", body(loginSchema), userController.loginUser);
 
 // Create freelancer
 userRouter.post("/create/freelancer", body(freelancerRegisterSchema), userController.createUser);
@@ -27,8 +34,20 @@ userRouter.post("/create/freelancer", body(freelancerRegisterSchema), userContro
 // Create company/client
 userRouter.post("/create/company", body(clientRegisterSchema), userController.createUser);
 
-// userRouter.post('/create', (req,res,next) => {
-//     res.json({msg: 'yes'})
-// })
+// Create company/admin
+userRouter.post("/create/admin", body(registerSchema), userController.createUser);
+
+// Get profile (protected route)
+userRouter.get("/profile", authenticate, userController.getProfile);
+
+// Change password (protected route)
+userRouter.post("/change-password", authenticate, body(changePasswordSchema), userController.changePassword);
+
+// Update user details (protected route)
+userRouter.patch("/update", authenticate, body(updateUserSchema), userController.updateUser);
+
+// Forgot password flow
+userRouter.post("/forgot-password", body(forgotPasswordSchema), userController.forgotPassword);
+userRouter.post("/reset-password", body(resetPasswordSchema), userController.resetPassword);
 
 export default userRouter;

@@ -9,6 +9,9 @@ export class UnprocessableError extends CustomError {
   }
 
   serializeErrors() {
-    return [{ message: this.mess ?? `Can't ${this.action} ${this.resource} Resource` }];
+    return {
+      status: this.statusCode,
+      message: this.mess ?? `Can't ${this.action} ${this.resource} Resource`
+    };
   }
 }

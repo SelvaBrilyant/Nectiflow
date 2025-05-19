@@ -5463,6 +5463,8 @@ export namespace Prisma {
     isBanned: boolean | null
     banReason: string | null
     twoFAEnabled: boolean | null
+    resetPasswordOTP: string | null
+    resetPasswordExpiry: Date | null
     logo: string | null
     banner: string | null
     companyName: string | null
@@ -5482,6 +5484,7 @@ export namespace Prisma {
     dob: Date | null
     gender: string | null
     maritalStatus: string | null
+    freelancerProfile: string | null
     level: number | null
     xp: number | null
     wallet: number | null
@@ -5499,6 +5502,8 @@ export namespace Prisma {
     isBanned: boolean | null
     banReason: string | null
     twoFAEnabled: boolean | null
+    resetPasswordOTP: string | null
+    resetPasswordExpiry: Date | null
     logo: string | null
     banner: string | null
     companyName: string | null
@@ -5518,6 +5523,7 @@ export namespace Prisma {
     dob: Date | null
     gender: string | null
     maritalStatus: string | null
+    freelancerProfile: string | null
     level: number | null
     xp: number | null
     wallet: number | null
@@ -5535,6 +5541,8 @@ export namespace Prisma {
     isBanned: number
     banReason: number
     twoFAEnabled: number
+    resetPasswordOTP: number
+    resetPasswordExpiry: number
     logo: number
     banner: number
     companyName: number
@@ -5563,6 +5571,7 @@ export namespace Prisma {
     maritalStatus: number
     freelancerSocials: number
     freelancerPhone: number
+    freelancerProfile: number
     level: number
     xp: number
     badges: number
@@ -5599,6 +5608,8 @@ export namespace Prisma {
     isBanned?: true
     banReason?: true
     twoFAEnabled?: true
+    resetPasswordOTP?: true
+    resetPasswordExpiry?: true
     logo?: true
     banner?: true
     companyName?: true
@@ -5618,6 +5629,7 @@ export namespace Prisma {
     dob?: true
     gender?: true
     maritalStatus?: true
+    freelancerProfile?: true
     level?: true
     xp?: true
     wallet?: true
@@ -5635,6 +5647,8 @@ export namespace Prisma {
     isBanned?: true
     banReason?: true
     twoFAEnabled?: true
+    resetPasswordOTP?: true
+    resetPasswordExpiry?: true
     logo?: true
     banner?: true
     companyName?: true
@@ -5654,6 +5668,7 @@ export namespace Prisma {
     dob?: true
     gender?: true
     maritalStatus?: true
+    freelancerProfile?: true
     level?: true
     xp?: true
     wallet?: true
@@ -5671,6 +5686,8 @@ export namespace Prisma {
     isBanned?: true
     banReason?: true
     twoFAEnabled?: true
+    resetPasswordOTP?: true
+    resetPasswordExpiry?: true
     logo?: true
     banner?: true
     companyName?: true
@@ -5699,6 +5716,7 @@ export namespace Prisma {
     maritalStatus?: true
     freelancerSocials?: true
     freelancerPhone?: true
+    freelancerProfile?: true
     level?: true
     xp?: true
     badges?: true
@@ -5804,6 +5822,8 @@ export namespace Prisma {
     isBanned: boolean
     banReason: string | null
     twoFAEnabled: boolean
+    resetPasswordOTP: string | null
+    resetPasswordExpiry: Date | null
     logo: string | null
     banner: string | null
     companyName: string | null
@@ -5832,6 +5852,7 @@ export namespace Prisma {
     maritalStatus: string | null
     freelancerSocials: JsonValue | null
     freelancerPhone: JsonValue | null
+    freelancerProfile: string | null
     level: number
     xp: number
     badges: string[]
@@ -5869,6 +5890,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: boolean
     twoFAEnabled?: boolean
+    resetPasswordOTP?: boolean
+    resetPasswordExpiry?: boolean
     logo?: boolean
     banner?: boolean
     companyName?: boolean
@@ -5897,6 +5920,7 @@ export namespace Prisma {
     maritalStatus?: boolean
     freelancerSocials?: boolean
     freelancerPhone?: boolean
+    freelancerProfile?: boolean
     level?: boolean
     xp?: boolean
     badges?: boolean
@@ -5930,6 +5954,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: boolean
     twoFAEnabled?: boolean
+    resetPasswordOTP?: boolean
+    resetPasswordExpiry?: boolean
     logo?: boolean
     banner?: boolean
     companyName?: boolean
@@ -5958,6 +5984,7 @@ export namespace Prisma {
     maritalStatus?: boolean
     freelancerSocials?: boolean
     freelancerPhone?: boolean
+    freelancerProfile?: boolean
     level?: boolean
     xp?: boolean
     badges?: boolean
@@ -5965,7 +5992,7 @@ export namespace Prisma {
     stripeAccountId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "email" | "password" | "createdAt" | "updatedAt" | "isVerified" | "isBanned" | "banReason" | "twoFAEnabled" | "logo" | "banner" | "companyName" | "aboutUs" | "organisationType" | "industryType" | "teamSize" | "yearEstablished" | "websiteUrl" | "companyVision" | "companySocials" | "locationLink" | "phone" | "name" | "username" | "bio" | "skills" | "languages" | "education" | "experience" | "personalWebsite" | "resumeLinks" | "nationality" | "dob" | "gender" | "maritalStatus" | "freelancerSocials" | "freelancerPhone" | "level" | "xp" | "badges" | "wallet" | "stripeAccountId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "email" | "password" | "createdAt" | "updatedAt" | "isVerified" | "isBanned" | "banReason" | "twoFAEnabled" | "resetPasswordOTP" | "resetPasswordExpiry" | "logo" | "banner" | "companyName" | "aboutUs" | "organisationType" | "industryType" | "teamSize" | "yearEstablished" | "websiteUrl" | "companyVision" | "companySocials" | "locationLink" | "phone" | "name" | "username" | "bio" | "skills" | "languages" | "education" | "experience" | "personalWebsite" | "resumeLinks" | "nationality" | "dob" | "gender" | "maritalStatus" | "freelancerSocials" | "freelancerPhone" | "freelancerProfile" | "level" | "xp" | "badges" | "wallet" | "stripeAccountId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     adminLog?: boolean | User$adminLogArgs<ExtArgs>
     jobsPosted?: boolean | User$jobsPostedArgs<ExtArgs>
@@ -6009,6 +6036,8 @@ export namespace Prisma {
       isBanned: boolean
       banReason: string | null
       twoFAEnabled: boolean
+      resetPasswordOTP: string | null
+      resetPasswordExpiry: Date | null
       logo: string | null
       banner: string | null
       companyName: string | null
@@ -6037,6 +6066,7 @@ export namespace Prisma {
       maritalStatus: string | null
       freelancerSocials: Prisma.JsonValue | null
       freelancerPhone: Prisma.JsonValue | null
+      freelancerProfile: string | null
       level: number
       xp: number
       badges: string[]
@@ -6456,6 +6486,8 @@ export namespace Prisma {
     readonly isBanned: FieldRef<"User", 'Boolean'>
     readonly banReason: FieldRef<"User", 'String'>
     readonly twoFAEnabled: FieldRef<"User", 'Boolean'>
+    readonly resetPasswordOTP: FieldRef<"User", 'String'>
+    readonly resetPasswordExpiry: FieldRef<"User", 'DateTime'>
     readonly logo: FieldRef<"User", 'String'>
     readonly banner: FieldRef<"User", 'String'>
     readonly companyName: FieldRef<"User", 'String'>
@@ -6484,6 +6516,7 @@ export namespace Prisma {
     readonly maritalStatus: FieldRef<"User", 'String'>
     readonly freelancerSocials: FieldRef<"User", 'Json'>
     readonly freelancerPhone: FieldRef<"User", 'Json'>
+    readonly freelancerProfile: FieldRef<"User", 'String'>
     readonly level: FieldRef<"User", 'Int'>
     readonly xp: FieldRef<"User", 'Int'>
     readonly badges: FieldRef<"User", 'String[]'>
@@ -18701,6 +18734,8 @@ export namespace Prisma {
     isBanned: 'isBanned',
     banReason: 'banReason',
     twoFAEnabled: 'twoFAEnabled',
+    resetPasswordOTP: 'resetPasswordOTP',
+    resetPasswordExpiry: 'resetPasswordExpiry',
     logo: 'logo',
     banner: 'banner',
     companyName: 'companyName',
@@ -18729,6 +18764,7 @@ export namespace Prisma {
     maritalStatus: 'maritalStatus',
     freelancerSocials: 'freelancerSocials',
     freelancerPhone: 'freelancerPhone',
+    freelancerProfile: 'freelancerProfile',
     level: 'level',
     xp: 'xp',
     badges: 'badges',
@@ -19250,6 +19286,8 @@ export namespace Prisma {
     isBanned?: BoolFilter<"User"> | boolean
     banReason?: StringNullableFilter<"User"> | string | null
     twoFAEnabled?: BoolFilter<"User"> | boolean
+    resetPasswordOTP?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     logo?: StringNullableFilter<"User"> | string | null
     banner?: StringNullableFilter<"User"> | string | null
     companyName?: StringNullableFilter<"User"> | string | null
@@ -19278,6 +19316,7 @@ export namespace Prisma {
     maritalStatus?: StringNullableFilter<"User"> | string | null
     freelancerSocials?: JsonNullableFilter<"User">
     freelancerPhone?: JsonNullableFilter<"User">
+    freelancerProfile?: StringNullableFilter<"User"> | string | null
     level?: IntFilter<"User"> | number
     xp?: IntFilter<"User"> | number
     badges?: StringNullableListFilter<"User">
@@ -19308,6 +19347,8 @@ export namespace Prisma {
     isBanned?: SortOrder
     banReason?: SortOrder
     twoFAEnabled?: SortOrder
+    resetPasswordOTP?: SortOrder
+    resetPasswordExpiry?: SortOrder
     logo?: SortOrder
     banner?: SortOrder
     companyName?: SortOrder
@@ -19336,6 +19377,7 @@ export namespace Prisma {
     maritalStatus?: SortOrder
     freelancerSocials?: SortOrder
     freelancerPhone?: SortOrder
+    freelancerProfile?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     badges?: SortOrder
@@ -19370,6 +19412,8 @@ export namespace Prisma {
     isBanned?: BoolFilter<"User"> | boolean
     banReason?: StringNullableFilter<"User"> | string | null
     twoFAEnabled?: BoolFilter<"User"> | boolean
+    resetPasswordOTP?: StringNullableFilter<"User"> | string | null
+    resetPasswordExpiry?: DateTimeNullableFilter<"User"> | Date | string | null
     logo?: StringNullableFilter<"User"> | string | null
     banner?: StringNullableFilter<"User"> | string | null
     companyName?: StringNullableFilter<"User"> | string | null
@@ -19397,6 +19441,7 @@ export namespace Prisma {
     maritalStatus?: StringNullableFilter<"User"> | string | null
     freelancerSocials?: JsonNullableFilter<"User">
     freelancerPhone?: JsonNullableFilter<"User">
+    freelancerProfile?: StringNullableFilter<"User"> | string | null
     level?: IntFilter<"User"> | number
     xp?: IntFilter<"User"> | number
     badges?: StringNullableListFilter<"User">
@@ -19427,6 +19472,8 @@ export namespace Prisma {
     isBanned?: SortOrder
     banReason?: SortOrder
     twoFAEnabled?: SortOrder
+    resetPasswordOTP?: SortOrder
+    resetPasswordExpiry?: SortOrder
     logo?: SortOrder
     banner?: SortOrder
     companyName?: SortOrder
@@ -19455,6 +19502,7 @@ export namespace Prisma {
     maritalStatus?: SortOrder
     freelancerSocials?: SortOrder
     freelancerPhone?: SortOrder
+    freelancerProfile?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     badges?: SortOrder
@@ -19481,6 +19529,8 @@ export namespace Prisma {
     isBanned?: BoolWithAggregatesFilter<"User"> | boolean
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
     twoFAEnabled?: BoolWithAggregatesFilter<"User"> | boolean
+    resetPasswordOTP?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPasswordExpiry?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     logo?: StringNullableWithAggregatesFilter<"User"> | string | null
     banner?: StringNullableWithAggregatesFilter<"User"> | string | null
     companyName?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -19509,6 +19559,7 @@ export namespace Prisma {
     maritalStatus?: StringNullableWithAggregatesFilter<"User"> | string | null
     freelancerSocials?: JsonNullableWithAggregatesFilter<"User">
     freelancerPhone?: JsonNullableWithAggregatesFilter<"User">
+    freelancerProfile?: StringNullableWithAggregatesFilter<"User"> | string | null
     level?: IntWithAggregatesFilter<"User"> | number
     xp?: IntWithAggregatesFilter<"User"> | number
     badges?: StringNullableListFilter<"User">
@@ -20485,6 +20536,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -20513,6 +20566,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -20543,6 +20597,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -20571,6 +20627,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -20600,6 +20657,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20628,6 +20687,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -20657,6 +20717,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20685,6 +20747,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -20715,6 +20778,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -20743,6 +20808,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -20760,6 +20826,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20788,6 +20856,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -20805,6 +20874,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20833,6 +20904,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -21905,6 +21977,18 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    isSet?: boolean
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -21935,18 +22019,6 @@ export namespace Prisma {
     hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-    isSet?: boolean
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -22072,6 +22144,8 @@ export namespace Prisma {
     isBanned?: SortOrder
     banReason?: SortOrder
     twoFAEnabled?: SortOrder
+    resetPasswordOTP?: SortOrder
+    resetPasswordExpiry?: SortOrder
     logo?: SortOrder
     banner?: SortOrder
     companyName?: SortOrder
@@ -22100,6 +22174,7 @@ export namespace Prisma {
     maritalStatus?: SortOrder
     freelancerSocials?: SortOrder
     freelancerPhone?: SortOrder
+    freelancerProfile?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     badges?: SortOrder
@@ -22126,6 +22201,8 @@ export namespace Prisma {
     isBanned?: SortOrder
     banReason?: SortOrder
     twoFAEnabled?: SortOrder
+    resetPasswordOTP?: SortOrder
+    resetPasswordExpiry?: SortOrder
     logo?: SortOrder
     banner?: SortOrder
     companyName?: SortOrder
@@ -22145,6 +22222,7 @@ export namespace Prisma {
     dob?: SortOrder
     gender?: SortOrder
     maritalStatus?: SortOrder
+    freelancerProfile?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     wallet?: SortOrder
@@ -22162,6 +22240,8 @@ export namespace Prisma {
     isBanned?: SortOrder
     banReason?: SortOrder
     twoFAEnabled?: SortOrder
+    resetPasswordOTP?: SortOrder
+    resetPasswordExpiry?: SortOrder
     logo?: SortOrder
     banner?: SortOrder
     companyName?: SortOrder
@@ -22181,6 +22261,7 @@ export namespace Prisma {
     dob?: SortOrder
     gender?: SortOrder
     maritalStatus?: SortOrder
+    freelancerProfile?: SortOrder
     level?: SortOrder
     xp?: SortOrder
     wallet?: SortOrder
@@ -22213,6 +22294,21 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -22242,21 +22338,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
-    isSet?: boolean
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -23180,6 +23261,11 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+    unset?: boolean
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -23212,11 +23298,6 @@ export namespace Prisma {
   export type UserUpdateresumeLinksInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-    unset?: boolean
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -24216,6 +24297,21 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -24254,21 +24350,6 @@ export namespace Prisma {
   export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    isSet?: boolean
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -24534,6 +24615,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -24562,6 +24645,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -24591,6 +24675,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -24619,6 +24705,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -24684,6 +24771,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24712,6 +24801,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -24740,6 +24830,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24768,6 +24860,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -25507,6 +25600,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -25535,6 +25630,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -25564,6 +25660,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -25592,6 +25690,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -25756,6 +25855,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25784,6 +25885,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -25812,6 +25914,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25840,6 +25944,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -25948,6 +26053,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -25976,6 +26083,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26005,6 +26113,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26033,6 +26143,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26128,6 +26239,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26156,6 +26269,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26184,6 +26298,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26212,6 +26328,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26402,6 +26519,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26430,6 +26549,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26459,6 +26579,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26487,6 +26609,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26531,6 +26654,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26559,6 +26684,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26587,6 +26713,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26615,6 +26743,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26644,6 +26773,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26672,6 +26803,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26701,6 +26833,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26729,6 +26863,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26773,6 +26908,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26801,6 +26938,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26829,6 +26967,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26857,6 +26997,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -26886,6 +27027,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26914,6 +27057,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -26943,6 +27087,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -26971,6 +27117,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27005,6 +27152,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27033,6 +27182,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27062,6 +27212,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27090,6 +27242,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27134,6 +27287,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27162,6 +27317,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27190,6 +27346,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27218,6 +27376,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27257,6 +27416,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27285,6 +27446,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27313,6 +27475,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27341,6 +27505,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27370,6 +27535,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27398,6 +27565,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27427,6 +27595,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27455,6 +27625,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27550,6 +27721,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27578,6 +27751,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27606,6 +27780,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27634,6 +27810,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27718,6 +27895,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27746,6 +27925,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27775,6 +27955,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27803,6 +27985,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -27847,6 +28030,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27875,6 +28060,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27903,6 +28089,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27931,6 +28119,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -27960,6 +28149,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -27988,6 +28179,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28017,6 +28209,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -28045,6 +28239,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28089,6 +28284,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28117,6 +28314,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -28145,6 +28343,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28173,6 +28373,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -28253,6 +28454,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -28281,6 +28484,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28310,6 +28514,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -28338,6 +28544,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28372,6 +28579,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -28400,6 +28609,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28429,6 +28639,8 @@ export namespace Prisma {
     isBanned?: boolean
     banReason?: string | null
     twoFAEnabled?: boolean
+    resetPasswordOTP?: string | null
+    resetPasswordExpiry?: Date | string | null
     logo?: string | null
     banner?: string | null
     companyName?: string | null
@@ -28457,6 +28669,7 @@ export namespace Prisma {
     maritalStatus?: string | null
     freelancerSocials?: InputJsonValue | null
     freelancerPhone?: InputJsonValue | null
+    freelancerProfile?: string | null
     level?: number
     xp?: number
     badges?: UserCreatebadgesInput | string[]
@@ -28556,6 +28769,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28584,6 +28799,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -28612,6 +28828,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28640,6 +28858,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -28679,6 +28898,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28707,6 +28928,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]
@@ -28735,6 +28957,8 @@ export namespace Prisma {
     isBanned?: BoolFieldUpdateOperationsInput | boolean
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
     twoFAEnabled?: BoolFieldUpdateOperationsInput | boolean
+    resetPasswordOTP?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28763,6 +28987,7 @@ export namespace Prisma {
     maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
     freelancerSocials?: InputJsonValue | InputJsonValue | null
     freelancerPhone?: InputJsonValue | InputJsonValue | null
+    freelancerProfile?: NullableStringFieldUpdateOperationsInput | string | null
     level?: IntFieldUpdateOperationsInput | number
     xp?: IntFieldUpdateOperationsInput | number
     badges?: UserUpdatebadgesInput | string[]

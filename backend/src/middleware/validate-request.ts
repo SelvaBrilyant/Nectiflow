@@ -22,11 +22,11 @@ const validate = (type: "query" | "body" | "params") => {
           query: "The query parameter",
           params: "The path parameter",
         };
-        // console.log(error);
         const errors = error.details.map((detail) => ({
           message: `${prefixes[type]} ${detail.message}`,
           field: (detail.context?.label || detail.context?.key)!,
         }));
+        console.log(errors);
 
         throw new RequestValidationError(errors);
       }
