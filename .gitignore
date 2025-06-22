@@ -1,49 +1,49 @@
-wc_node/node_modules
-wc_node/dist
-wc_node/generated
-wc_node/prisma/dev.db
-wc_node/prisma/dev.db-journal
-wc_node/prisma/dev.db-trace.json
+backend/node_modules
+backend/dist
+backend/generated
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/dev.db-trace.json
 
 #--------FRONTEND--------
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-wc/node_modules
-wc/.pnp
-wc/.pnp.*
-wc/.yarn/*
-wc/.yarn/patches
-wc/.yarn/plugins
-wc/.yarn/releases
-wc/.yarn/versions
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+frontend/.yarn/patches
+frontend/.yarn/plugins
+frontend/.yarn/releases
+frontend/.yarn/versions
 
 # testing
-wc/coverage
+frontend/coverage
 
 # next.js
-wc/.next/
-wc/out/
+frontend/.next/
+frontend/out/
 
 # production
-wc/build
+frontend/build
 
 # misc
-wc/.DS_Store
-wc/*.pem
+frontend/.DS_Store
+frontend/*.pem
 
 # debug
-wc/npm-debug.log*
-wc/yarn-debug.log*
-wc/yarn-error.log*
-wc/.pnpm-debug.log*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-wc/.env*
+frontend/.env*
 
 # vercel
-wc/.vercel
+frontend/.vercel
 
 # typescript
-wc/*.tsbuildinfo
-wc/next-env.d.ts
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts

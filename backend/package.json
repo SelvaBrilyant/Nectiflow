@@ -8,9 +8,7 @@
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "check-types": "tsc --noEmit --pretty",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:generate": "npx prisma generate"
+    "generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +24,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.10.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/nodemailer": "^6.4.17",
     "bcrypt": "^5.1.1",
