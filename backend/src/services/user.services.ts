@@ -1,4 +1,4 @@
-import { Prisma, User, PermissionName } from "../../generated/prisma/client";
+import { Prisma, User, PermissionName, Role, PrismaClient } from "../../generated/prisma/client";
 import bcrypt from 'bcrypt';
 import { GenericError } from "../errors/generic-error";
 import { UserRepo } from "../repositories/user.repo";
@@ -6,6 +6,7 @@ import TokenService from "./token.service";
 import { DEFAULT_PERMISSIONS } from "../utils/default-permissions";
 import crypto from 'crypto';
 import { EmailService } from "./email.service";
+import { URL } from 'url';
 
 export class UserService {
     private userRepo: UserRepo;
@@ -19,108 +20,97 @@ export class UserService {
         this.emailService = new EmailService();
     }
 
-    private async createUserPermissions(userId: string, userType: 'FREELANCER' | 'COMPANY' | 'ADMIN'): Promise<void> {
-        const permissions = DEFAULT_PERMISSIONS[userType];
-        
-        // Create permissions for the user
-        await Promise.all(
-            permissions.map(async (permissionName) => {
-                // First, get or create the permission
-                const permission = await this.userRepo.prisma.permission.upsert({
-                    where: { name: permissionName },
-                    update: {},
-                    create: {
-                        name: permissionName,
-                        description: `Permission for ${permissionName}`
-                    }
-                });
+    async createOrganizationAndUser(data: {
+      organizationName: string;
+      organizationSubdomain: string;
+      userData: Pick<User, 'name' | 'email' | 'password'>;
+    }): Promise<{ user: User, organization: any }> {
+        const { organizationName, organizationSubdomain, userData } = data;
 
-                // Then create the user permission
-                await this.userRepo.prisma.userPermission.create({
-                    data: {
-                        userId,
-                        permissionId: permission.id
-                    }
-                });
-            })
-        );
-    }
-
-    async createUser(user: Prisma.UserCreateInput): Promise<User> {
-        const existingUser = await this.userRepo.findUserByEmail(user.email).catch((err) => console.log('error', err));
-
+        const existingUser = await this.userRepo.findUserByEmail(userData.email);
         if (existingUser) {
             throw new GenericError('User already exists');
         }
 
-        if (!user.password) {
+        if (!userData.password) {
             throw new GenericError('Password is required');
         }
-
-        const hashedPassword = await bcrypt.hash(user.password, 10);
-
-        // Check if this is the first user and should be admin
+        
+        const hashedPassword = await bcrypt.hash(userData.password, 10);
         const isFirstUser = await this.userRepo.isFirstUser();
-        const hasAdmin = await this.userRepo.hasAdminUser();
 
-        // Create user with transaction to ensure atomicity
-        const createdUser = await this.userRepo.prisma.$transaction(async (prisma) => {
-            let newUser: User;
+        let user: User;
+        let organization: any;
 
-            if (isFirstUser) {
-                // First user becomes admin
-                newUser = await this.userRepo.createFirstAdmin({
-                    ...user,
-                    password: hashedPassword,
-                });
-            } else if (user.type === 'ADMIN' && !hasAdmin) {
-                // If no admin exists and user type is ADMIN
-                newUser = await this.userRepo.createFirstAdmin({
-                    ...user,
-                    password: hashedPassword,
-                });
-            } else if (user.type === 'ADMIN' && hasAdmin) {
-                // Prevent creating additional admins
-                throw new GenericError('Admin user already exists');
-            } else {
-                // Regular user creation
-                newUser = await this.userRepo.createUser({
-                    ...user,
-                    password: hashedPassword,
-                });
-            }
-
-            // Create default permissions
-            await this.createUserPermissions(newUser.id, newUser.type as 'FREELANCER' | 'COMPANY' | 'ADMIN');
-
-            return newUser;
-        });
-
-        // Send onboarding email based on user type
         try {
-            if (createdUser.type === 'FREELANCER') {
-                await this.emailService.sendFreelancerOnboardingEmail(
-                    createdUser.email,
-                    createdUser.name || 'Freelancer'
-                );
-            } else if (createdUser.type === 'COMPANY') {
-                await this.emailService.sendClientOnboardingEmail(
-                    createdUser.email,
-                    createdUser.companyName || 'Company'
-                );
-            }
+            ({ user, organization } = await this.userRepo.prisma.$transaction(async (prisma) => {
+                const createdOrganization = await prisma.organization.create({
+                    data: {
+                        name: organizationName,
+                        subdomain: organizationSubdomain,
+                    },
+                });
+
+                const createdUser = await prisma.user.create({
+                    data: {
+                        email: userData.email,
+                        name: userData.name,
+                        password: hashedPassword,
+                        role: isFirstUser ? 'SUPER_ADMIN' : 'OWNER',
+                        organizationId: createdOrganization.id,
+                    },
+                });
+
+                return { user: createdUser, organization: createdOrganization };
+            }));
         } catch (error) {
-            console.error('Failed to send onboarding email:', error);
-            // Don't throw error as email sending is not critical
+            console.error("Failed to create organization, user, and permissions in main DB.", error);
+            throw new GenericError("Could not create organization. Please try again.");
         }
 
-        return createdUser;
+        const dbName = `${organizationName.toLowerCase().replace(/[^a-z0-9]/g, '_')}`;
+
+        const databaseUrl = process.env.DATABASE_URL;
+        if (!databaseUrl) {
+            throw new Error('DATABASE_URL environment variable is not set.');
+        }
+
+        const tenantDatabaseUrl = new URL(databaseUrl);
+        tenantDatabaseUrl.pathname = `/${dbName}`;
+
+        const tenantPrisma = new PrismaClient({
+            datasources: {
+                db: {
+                    url: tenantDatabaseUrl.toString(),
+                },
+            },
+        });
+
+        try {
+            await tenantPrisma.organization.create({
+                data: {
+                    id: organization.id,
+                    name: organizationName,
+                    subdomain: organizationSubdomain,
+                },
+            });
+            return { user, organization };
+        } catch (error) {
+            console.error("Failed to set up tenant database, rolling back main DB records.", error);
+            
+            // Manual rollback of records created in the main DB
+            await this.userRepo.prisma.user.delete({ where: { id: user.id } }); // This should cascade delete UserPermission
+            await this.userRepo.prisma.organization.delete({ where: { id: organization.id } });
+
+            throw new GenericError("Could not create organization. Please try again.");
+        } finally {
+            await tenantPrisma.$disconnect();
+        }
     }
 
     async loginUser(
         email: string,
-        userPassword: string,
-        type: 'FREELANCER' | 'COMPANY' | 'ADMIN'
+        userPassword: string
     ): Promise<{
         token: string;
         user: User;
@@ -129,10 +119,6 @@ export class UserService {
     
         if (!existingUser) {
             throw new GenericError('User does not exist');
-        }
-
-        if (existingUser.type !== type) {
-            throw new GenericError('Invalid user type');
         }
 
         if (!existingUser.password) {
@@ -183,26 +169,11 @@ export class UserService {
             throw new GenericError('User not found');
         }
 
-        // Validate that user is not trying to change their type
-        if (updateData.type && updateData.type !== user.type) {
-            throw new GenericError('Cannot change user type');
-        }
-
         // If email is being updated, check if it's already in use
         if (updateData.email && updateData.email !== user.email) {
             const existingUser = await this.userRepo.findUserByEmail(updateData.email);
             if (existingUser) {
                 throw new GenericError('Email already in use');
-            }
-        }
-
-        // If username is being updated (for freelancers), check if it's already in use
-        if (updateData.username && updateData.username !== user.username) {
-            const existingUser = await this.userRepo.prisma.user.findUnique({
-                where: { username: updateData.username }
-            });
-            if (existingUser) {
-                throw new GenericError('Username already in use');
             }
         }
 

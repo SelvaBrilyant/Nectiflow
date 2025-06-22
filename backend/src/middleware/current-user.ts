@@ -1,6 +1,6 @@
-import { PrismaClient } from "../../generated/prisma/client";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import prisma from "../config/prisma";
 
 export const currentUser = async (
   req: Request,
@@ -10,7 +10,6 @@ export const currentUser = async (
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];
 
-    const prisma = new PrismaClient();
     try {
       const userId = decodeToken(token); // Decode the token to get the user ID
 
@@ -18,15 +17,12 @@ export const currentUser = async (
         where: { id: userId },
       });
 
-      await prisma.$disconnect();
-
       if (prismaUser) {
         req.currentUser = prismaUser; // Assign the user directly
       } else {
         req.currentUser = null;
       }
     } catch (error: any) {
-      await prisma.$disconnect();
       console.log('======= Current User Error Exception =========');
       next(error);
     }

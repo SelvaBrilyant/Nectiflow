@@ -107,6 +107,14 @@ export const clientRegisterSchema: AnySchema = Joi.object({
   type: Joi.string().valid('COMPANY').required()
 });
 
+export const organizationRegisterSchema = Joi.object({
+  organizationName: Joi.string().min(3).max(100).required(),
+  organizationSubdomain: Joi.string().min(3).max(50).required(),
+  name: Joi.string().min(3).max(50).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
+});
+
 export const forgotPasswordSchema: AnySchema = Joi.object({
   email: Joi.string().email().required(),
 });

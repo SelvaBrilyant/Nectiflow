@@ -42,25 +42,21 @@ enum Priority {
 }
 
 enum PermissionName {
-  // Org / Billing
   MANAGE_ORG
   MANAGE_SUBSCRIPTION
   VIEW_BILLING
 
-  // User Management
   INVITE_USERS
   VIEW_ALL_USERS
   BAN_USER
   ASSIGN_ROLE
 
-  // Project
   CREATE_PROJECT
   UPDATE_PROJECT
   DELETE_PROJECT
   ASSIGN_PROJECT_MANAGER
   VIEW_ALL_PROJECTS
 
-  // Task
   CREATE_TASK
   ASSIGN_TASK
   UPDATE_TASK
@@ -69,24 +65,19 @@ enum PermissionName {
   VIEW_PRIVATE_TASKS
   CHANGE_TASK_STATUS
 
-  // Subtask
   CREATE_SUBTASK
   MARK_SUBTASK_DONE
 
-  // AI
   USE_AI_ASSIGNMENT
   VIEW_AI_LOG
 
-  // Time
   LOG_TIME
   VIEW_TIME_REPORT
 
-  // Badge
   CREATE_BADGE
   ASSIGN_BADGE
   VIEW_BADGE_HISTORY
 
-  // General
   VIEW_DASHBOARD
   UPDATE_PROFILE
   VIEW_NOTIFICATIONS
@@ -122,18 +113,19 @@ model User {
   isVerified     Boolean  @default(false)
   isBanned       Boolean  @default(false)
 
+  resetPasswordOTP     String?
+  resetPasswordExpiry  DateTime?
+
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String       @db.ObjectId
 
-  // Optional Role-Based Fields
-  department       String?           // For PM, Team Lead, Employee
-  skills           String[]          // For executional roles
-  skillRatings     Json?             // e.g. { react: 4, node: 3 }
-  availability     String?           // "available", "away", etc.
-  workloadScore    Float?            // Updated dynamically
-  performanceScore Float?            // Based on completion success
+  department       String?
+  skills           String[]
+  skillRatings     Json?
+  availability     String?
+  workloadScore    Float?
+  performanceScore Float?
 
-  // Relationships
   createdTasks    Task[]      @relation("CreatedTasks")
   assignedTasks   Task[]      @relation("AssignedTasks")
   comments        Comment[]
@@ -142,34 +134,26 @@ model User {
   taskLogs        TaskActivityLog[]
   badges          Badge[]
 
-  userPermissions UserPermission[]
   notifications   Notification[]
   activityLogs    ActivityLog[]
 }
 
 model RolePermission {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  role         Role
-  permissionId String     @db.ObjectId
-  permission   Permission @relation(fields: [permissionId], references: [id])
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  role           Role         @unique
+  permissionIds  String[]     @db.ObjectId
+  permissions    Permission[] @relation("RolePermissions", fields: [permissionIds], references: [id])
 }
 
-model UserPermission {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String     @db.ObjectId
-  permissionId String     @db.ObjectId
-  user         User       @relation(fields: [userId], references: [id])
-  permission   Permission @relation(fields: [permissionId], references: [id])
-}
 
 model Permission {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
-  name        PermissionName @unique
-  description String?
-  createdAt   DateTime       @default(now())
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              PermissionName   @unique
+  description       String?
+  createdAt         DateTime         @default(now())
 
-  roles           RolePermission[]
-  userPermissions UserPermission[]
+  roles             RolePermission[] @relation("RolePermissions", fields: [rolePermissionIds], references: [id])
+  rolePermissionIds String[]         @db.ObjectId
 }
 
 model Project {
@@ -197,7 +181,7 @@ model Task {
   priority       Priority   @default(MEDIUM)
   dueDate        DateTime?
   tags           String[]
-  visibility     String? // "public", "org-only", "private"
+  visibility     String?
   recurrence     Json?
 
   requiredSkills String[]
@@ -237,18 +221,18 @@ model Subtask {
 }
 
 model Attachment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  url         String
-  fileName    String
-  type        String
-  taskId      String?  @db.ObjectId
-  subtaskId   String?  @db.ObjectId
-  uploadedById String  @db.ObjectId
-  uploadedAt  DateTime @default(now())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  url          String
+  fileName     String
+  type         String
+  taskId       String?  @db.ObjectId
+  subtaskId    String?  @db.ObjectId
+  uploadedById String   @db.ObjectId
+  uploadedAt   DateTime @default(now())
 
-  task        Task?    @relation(fields: [taskId], references: [id])
-  subtask     Subtask? @relation(fields: [subtaskId], references: [id])
-  uploadedBy  User     @relation(fields: [uploadedById], references: [id])
+  task         Task?    @relation(fields: [taskId], references: [id])
+  subtask      Subtask? @relation(fields: [subtaskId], references: [id])
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
 }
 
 model Comment {
@@ -314,7 +298,7 @@ model BadgeTemplate {
   name        String
   icon        String
   description String
-  criteria    String   // e.g. "Complete 5 tasks"
+  criteria    String
   createdAt   DateTime @default(now())
 
   project     Project  @relation(fields: [projectId], references: [id])

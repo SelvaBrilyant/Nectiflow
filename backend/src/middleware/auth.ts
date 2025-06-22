@@ -3,7 +3,7 @@ import TokenService from '../services/token.service';
 import { UserRepo } from '../repositories/user.repo';
 import { PrismaClient } from '../../generated/prisma/client';
 import { GenericError } from '../errors/generic-error';
-import { PermissionName, UserType } from '../../generated/prisma/client';
+import { PermissionName, Role } from '../../generated/prisma/client';
 import { UnAuthenticatedError } from '../errors/unauthenticated-error';
 
 const prisma = new PrismaClient();
@@ -55,14 +55,14 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 };
 
 // Role-based access control
-export const requireRole = (roles: UserType[]) => {
+export const requireRole = (roles: Role[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
         if (!req.currentUser) {
             const error = new UnAuthenticatedError('Authentication required');
             return res.status(error.statusCode).json(error.serializeErrors());
         }
 
-        if (!roles.includes(req.currentUser.type)) {
+        if (!roles.includes(req.currentUser.role)) {
             const error = new UnAuthenticatedError('Insufficient role permissions');
             return res.status(error.statusCode).json(error.serializeErrors());
         }
@@ -79,13 +79,27 @@ export const requirePermission = (permissions: PermissionName[]) => {
             return res.status(error.statusCode).json(error.serializeErrors());
         }
 
-        // Get user permissions
-        const userPermissions = await prisma.userPermission.findMany({
-            where: { userId: req.currentUser.id },
-            include: { permission: true }
+        const userRole = req.currentUser.role;
+
+        // Get role permissions from RolePermission table
+        const rolePermission = await prisma.rolePermission.findUnique({
+            where: { role: userRole },
         });
 
-        const userPermissionNames = userPermissions.map(up => up.permission.name);
+        if (!rolePermission) {
+            const error = new UnAuthenticatedError('Insufficient permissions');
+            return res.status(error.statusCode).json(error.serializeErrors());
+        }
+
+        // Get the names of the permissions associated with the role
+        const rolePermissions = await prisma.permission.findMany({
+            where: {
+                id: { in: rolePermission.permissionIds }
+            },
+            select: { name: true }
+        });
+
+        const userPermissionNames = rolePermissions.map(p => p.name);
 
         // Check if user has all required permissions
         const hasAllPermissions = permissions.every(permission => 
@@ -102,12 +116,12 @@ export const requirePermission = (permissions: PermissionName[]) => {
 };
 
 // Combined middleware for role and permission checking
-export const requireAccess = (roles: UserType[], permissions: PermissionName[]) => {
+export const requireAccess = (roles: Role[], permissions: PermissionName[]) => {
     return [authenticate, requireRole(roles), requirePermission(permissions)];
 };
 
 // Resource ownership validation
-export const validateOwnership = (resourceType: 'user' | 'job' | 'proposal') => {
+export const validateOwnership = (resourceType: 'user') => {
     return async (req: Request, res: Response, next: NextFunction) => {
         if (!req.currentUser) {
             const error = new UnAuthenticatedError('Authentication required');
@@ -121,21 +135,9 @@ export const validateOwnership = (resourceType: 'user' | 'job' | 'proposal') => 
             case 'user':
                 isOwner = req.currentUser.id === resourceId;
                 break;
-            case 'job':
-                const job = await prisma.job.findUnique({
-                    where: { id: resourceId }
-                });
-                isOwner = job?.clientId === req.currentUser.id;
-                break;
-            case 'proposal':
-                const proposal = await prisma.proposal.findUnique({
-                    where: { id: resourceId }
-                });
-                isOwner = proposal?.freelancerId === req.currentUser.id;
-                break;
         }
 
-        if (!isOwner && req.currentUser.type !== 'ADMIN') {
+        if (!isOwner && req.currentUser.role !== 'SUPER_ADMIN') {
             const error = new UnAuthenticatedError('Access denied: Not the resource owner');
             return res.status(error.statusCode).json(error.serializeErrors());
         }

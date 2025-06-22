@@ -7,6 +7,9 @@ import morgan from 'morgan';
 import globalErrorHandler from './utils/global-error-handler';
 import { GenericError } from './errors/generic-error';
 import userRouter from './router/user.router';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
+import { runSeed } from '../prisma/seed';
 
 dotenv.config();
 
@@ -19,6 +22,7 @@ const port = process.env.PORT || 3000;
  * Main function to configure and start the Express server.
  */
 async function main() {
+  await runSeed(prisma);
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cors());
@@ -31,7 +35,10 @@ async function main() {
     res.send('⚡️ Healthy server running!');
   });
 
-  app.use('/api/v1/user', userRouter);
+  app.use('/api/v1', userRouter);
+
+  // swagger docs
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   // 404 route - Handles requests to undefined routes
   app.all('*', (req: Request, _res: Response, next: NextFunction) => {
